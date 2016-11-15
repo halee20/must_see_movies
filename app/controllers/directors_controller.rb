@@ -1,4 +1,6 @@
 class DirectorsController < ApplicationController
+  skip_before_action: authentiate_user!, :only => [:index, :show]
+
   def index
     @q = Director.ransack(params[:q])
     @directors = @q.result(:distinct => true).includes(:filmography).page(params[:page]).per(10)
